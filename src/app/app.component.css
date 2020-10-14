@@ -1,0 +1,7 @@
+.modal-backdrop .fade .in {
+    opacity: 0 ;
+  }
+  
+  .modal-backdrop.fade {
+      opacity: 0 ;
+  }

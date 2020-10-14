@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LocusNineModelStoreContainer" CdmEntityContainer="LocusNineEntities">
+    <EntitySetMapping Name="USERTBLs">
+      <EntityTypeMapping TypeName="LocusNineModel.USERTBL">
+        <MappingFragment StoreEntitySet="USERTBL">
+          <ScalarProperty Name="USER_PK" ColumnName="USER_PK" />
+          <ScalarProperty Name="FULL_NAME" ColumnName="FULL_NAME" />
+          <ScalarProperty Name="EMAIL_ID" ColumnName="EMAIL_ID" />
+          <ScalarProperty Name="ROLE_TYPE" ColumnName="ROLE_TYPE" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

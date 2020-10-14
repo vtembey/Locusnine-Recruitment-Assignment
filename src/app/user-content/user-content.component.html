@@ -1,0 +1,32 @@
+<h1 mat-dialog-title><strong>{{action}} User</strong></h1>
+<button mat-button mat-dialog-close class="close" align="right">X</button>
+
+<mat-dialog-content class="modal-fade" width ="max-content" align="center">
+  <mat-form-field *ngIf="action != 'Delete'; else elseTemplate" width="max-content">      
+       <!-- {{addUserForm.value|json}}<br><br>       -->
+         <mat-label>Full Name</mat-label>
+         <input matInput placeholder={{local_data.FULL_NAME}} [(ngModel)]="local_data.FULL_NAME" name="FULL_NAME" > <br> <br>      
+
+        <mat-radio-group aria-label="Select an option" class="radio-inline"  [(ngModel)]="local_data.ROLE_TYPE" name="ROLE_TYPE" >        
+           <mat-radio-button value="Admin"  >Admin</mat-radio-button>        
+           <mat-radio-button value="Customer Executive"  >Customer Executive</mat-radio-button>           
+         </mat-radio-group><br><br>        
+
+
+        <mat-form-field  appearance="fill">
+           <mat-label>Select an option</mat-label>
+           <mat-select  [(ngModel)]="local_data.STATUS" name="STATUS">                 
+             <mat-option *ngFor="let stat of stats" [value]="stat" >{{stat}}</mat-option>             
+           </mat-select>
+        </mat-form-field><br><br>                          
+  </mat-form-field>
+  <ng-template #elseTemplate>
+    <br><br>
+   <h2> Sure to delete <b>{{local_data.FULL_NAME}}</b>? </h2>
+     <br><br>
+  </ng-template>
+</mat-dialog-content>
+<div mat-dialog-actions align="center">
+  <button mat-button (click)="doAction()" align="center" class="btn btn-warning">{{action}}</button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="warn" align="center">Cancel</button>
+</div>

@@ -1,0 +1,141 @@
+<!--Navigation bar-->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>      
+      <a class="navbar-brand"href="#">
+        <img src="assets/Images/Logo.svg" alt="No image found">
+        <style>
+        img {
+          max-width:100%;
+          height:auto;
+        }
+        </style>
+      </a>
+    </div>    
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <style>
+        img {
+          max-width:100%;
+          height:auto;
+        }
+        </style>
+      <ul class="nav navbar-nav">
+        <li ><a href="#">          
+          <img src="assets/Images/ico_dashboard.svg" alt="No image found"> Dashboard<span class="sr-only">(current)</span></a></li>
+        <li ><a href="#">         
+          <img src="assets/Images/ico_users.svg" alt="No image found">Users</a></li>
+          <li ><a href="#">         
+            <img src="assets/Images/ico_sessionmanager.svg" alt="No image found">Session Manager</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">
+          <img src="assets/Images/ico_notification.svg" alt="No image found">
+        </a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <img src="assets/Images/ico_user.svg" alt="No image found">Vipul Tembey <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Edit Profile</a></li>
+            <li><a href="#">Change Password</a></li>
+            <li><a href="#">Logout</a></li>           
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<!--User Table-->
+<table mat-table [dataSource]="dataSource" #mytable class="my-table mat-elevation-z8">    
+  <style>
+    table{
+        border: 20px solid darkgray;           
+        width: 100%
+    }      
+  </style>  
+  
+  <tr mat-header-row *matHeaderRowDef="headers"></tr>
+  <tr mat-row *matRowDef="let myRowData; columns: headers" ></tr>
+  
+  <!--Name Header-->
+  <ng-container matColumnDef="FULL_NAME-description">
+    <th mat-header-cell *matHeaderCellDef width="250px" ><b>Name</b><img src="assets/Images/ico_sorting.svg" alt="No image found"> </th>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="FULL_NAME">
+    <th mat-header-cell *matHeaderCellDef width="250px"> <img src="assets/Images/ico_users.svg"> Users </th>
+    <td mat-cell *matCellDef="let element" align="left"> {{element.FULL_NAME}} </td>
+  </ng-container>
+
+  <!--Email Header-->
+  <ng-container matColumnDef="EMAIL_ID-description">
+    <th mat-header-cell *matHeaderCellDef width="250px"><b>EMAIL_ID</b></th>
+  </ng-container>
+  <!-- Email Column -->
+  <ng-container matColumnDef="EMAIL_ID">
+    <th mat-header-cell *matHeaderCellDef width="250px">  </th>
+    <td mat-cell *matCellDef="let element" align="left"> {{element.EMAIL_ID}} </td>
+  </ng-container>
+
+  <!--Role Header-->
+  <ng-container matColumnDef="ROLE_TYPE-description">
+    <th mat-header-cell *matHeaderCellDef width="250px"><b>ROLE TYPE</b></th>
+  </ng-container>  
+  <!-- Role Column -->
+  <ng-container matColumnDef="ROLE_TYPE">
+    <th mat-header-cell *matHeaderCellDef width="250px"></th>
+    <td mat-cell *matCellDef="let element" align="left"> {{element.ROLE_TYPE}} </td>
+  </ng-container>
+
+   <!--Status Header-->
+   <ng-container matColumnDef="STATUS-description">
+    <th mat-header-cell *matHeaderCellDef width="250px"><b>STATUS</b></th>
+  </ng-container>  
+   <!-- Status Column -->
+   <ng-container matColumnDef="STATUS">
+    <th mat-header-cell *matHeaderCellDef width="250px">  </th>
+    <td  mat-cell *matCellDef="let element" align="left" >
+      <img *ngIf="element.STATUS == 'Active'" src="assets/Images/ico_active.svg" alt="No image found"> 
+      <img *ngIf="element.STATUS == 'Inactive'" src="assets/Images/ico_inactive.svg" alt="No image found"> 
+      <img *ngIf="element.STATUS == 'Pending'" src="assets/Images/ico_pending.svg" alt="No image found"> 
+      {{element.STATUS}} </td>      
+    </ng-container>
+
+  <!--Edit Header-->
+  <ng-container matColumnDef="UPDATE-description">
+    <th mat-header-cell *matHeaderCellDef width="250px">
+            
+    </th>      
+  </ng-container>  
+  <!-- Edit Column -->
+  <ng-container matColumnDef="UPDATE">
+    <th mat-header-cell *matHeaderCellDef width="100px"><input type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon2" ></th>      
+    <td mat-cell *matCellDef="let element" class="action-button" align="center"><a (click)="openDialog('Update',element)"><img src="assets/Images/ico_edit.svg" alt="No image found" ></a>  </td>
+  </ng-container>
+
+  <!--Delete Header-->
+  <ng-container matColumnDef="DELETE-description">
+    <th mat-header-cell *matHeaderCellDef width="250px" align="right"></th>      
+  </ng-container>  
+  <!-- Delete Column -->
+  <ng-container matColumnDef="DELETE" >
+    <th mat-header-cell *matHeaderCellDef width="100px" > <button mat-button (click)="openDialog('Add',{})" class="btn btn-warning" align="right">+Add</button> </th>      
+    <td mat-cell *matCellDef="let element" class="action-button" align="center">  <button mat-button align="center"  class="btn btn-danger" (click)="openDialog('Delete',element)" >DELETE</button>  </td>
+  </ng-container>
+
+<tr mat-header-row *matHeaderRowDef="[
+  'FULL_NAME-description',
+  'EMAIL_ID-description',
+  'ROLE_TYPE-description',
+  'STATUS-description',
+  'UPDATE-description',
+  'DELETE-description']"></tr>  
+</table>  
