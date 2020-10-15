@@ -8,16 +8,19 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using UserApi.Models;
+using UserAPI.Models;
+using System.Web.Mvc;
+using Newtonsoft.Json;
+using Microsoft.Ajax.Utilities;
 
-namespace UserApi.Controllers
+namespace UserAPI.Controllers
 {
     public class UserController : ApiController
     {
         private LocusNineEntities db = new LocusNineEntities();
 
         // GET: api/User
-        public IQueryable<USERTBL> GetUSERTBLs()
+        public IQueryable<USERTBL> GetUsers()
         {
             return db.USERTBLs;
         }
@@ -37,17 +40,17 @@ namespace UserApi.Controllers
 
         // PUT: api/User/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUSERTBL(int id, USERTBL uSERTBL)
+        public IHttpActionResult PutUSER( USERTBL uSERTBL)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != uSERTBL.USER_PK)
-            {
-                return BadRequest();
-            }
+            //if (id != uSERTBL.USER_PK)
+            //{
+            //    return BadRequest();
+            //}
 
             db.Entry(uSERTBL).State = EntityState.Modified;
 
@@ -57,7 +60,7 @@ namespace UserApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!USERTBLExists(id))
+                if (!USERTBLExists(uSERTBL.USER_PK))
                 {
                     return NotFound();
                 }
@@ -70,9 +73,15 @@ namespace UserApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        //[System.Web.Http.HttpPatch]
+        //public IHttpActionResult PatchEmail(USERTBL uSERTBL)
+        //{
+
+        //}
+
         // POST: api/User
         [ResponseType(typeof(USERTBL))]
-        public IHttpActionResult PostUSERTBL(USERTBL uSERTBL)
+        public IHttpActionResult PostUSER(USERTBL uSERTBL)
         {
             if (!ModelState.IsValid)
             {
@@ -86,19 +95,21 @@ namespace UserApi.Controllers
         }
 
         // DELETE: api/User/5
-        [ResponseType(typeof(USERTBL))]
-        public IHttpActionResult DeleteUSERTBL(int id)
+        [ResponseType(typeof(USERTBL))]       
+        public IHttpActionResult DeleteUSER(int id)
         {
             USERTBL uSERTBL = db.USERTBLs.Find(id);
             if (uSERTBL == null)
             {
                 return NotFound();
+                //return false;
             }
 
             db.USERTBLs.Remove(uSERTBL);
             db.SaveChanges();
 
             return Ok(uSERTBL);
+            //return true;
         }
 
         protected override void Dispose(bool disposing)
