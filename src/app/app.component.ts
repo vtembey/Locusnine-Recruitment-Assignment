@@ -75,7 +75,10 @@ export class AppComponent {
         if(!row_obj){return;}
         this.api.apiAddUser(row_obj)
           .subscribe(() => row_obj),console.log("getUserByIdApi call sucessfull-"+ row_obj.FULL_NAME);          
-        //this.table.renderRows();        
+         
+		this.api.apiUpdateEmailId(row_obj)
+        .subscribe(() => row_obj),console.log("getUserByIdApi call sucessfull-"+ row_obj.FULL_NAME);
+		
         window.location.reload();
       }
 
@@ -83,6 +86,10 @@ export class AppComponent {
         if(!row_obj){return;}
         this.api.apiUpdateUser(row_obj)
           .subscribe(() => row_obj),console.log("getUserByIdApi call sucessfull-"+ row_obj.FULL_NAME);
+		  
+		this.api.apiUpdateEmailId(row_obj)
+        .subscribe(() => row_obj),console.log("getUserByIdApi call sucessfull-"+ row_obj.FULL_NAME);
+		
         window.location.reload(); 
       }
       

@@ -111,7 +111,37 @@ namespace UserAPI.Controllers
             return Ok(uSERTBL);
             //return true;
         }
+		
+		 [ResponseType(typeof(void))]
+        public IHttpActionResult PatchEmail(USERTBL uSERTBL)
+        {
+            string sqlUpdate;           
 
+            int intNameLength = uSERTBL.FULL_NAME.SubstringUpToFirst(' ').Length;
+
+            var nameCount = (from row in db.USERTBLs
+                         where row.FULL_NAME.Substring(0, intNameLength) == uSERTBL.FULL_NAME.Substring(0, intNameLength)
+                         select row).Count();
+
+            string str = "\"Vipul\"";
+            if (Convert.ToInt32(nameCount) == 1)
+            {
+                sqlUpdate = "UPDATE LocusNine.dbo.USERTBL " +
+                                    "SET EMAIL_ID = " + "\'" + uSERTBL.FULL_NAME.Substring(0, intNameLength).ToLower() + "@locusnine.com" + "\'" + 
+                                    " WHERE USER_PK=@user_pk";                
+            }
+            else
+            {
+                sqlUpdate = "UPDATE LocusNine.dbo.USERTBL " +
+                                    "SET USERTBL.EMAIL_ID = " + "\'" +(uSERTBL.FULL_NAME.Substring(0, intNameLength).ToLower()+ "+" + (nameCount-1)+"@locusnine.com") + "\'" +
+                                    " WHERE USERTBL.USER_PK=@user_pk";                
+            }
+
+            db.Database.ExecuteSqlCommand(sqlUpdate, new SqlParameter("@user_pk", uSERTBL.USER_PK));            
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+		
         protected override void Dispose(bool disposing)
         {
             if (disposing)

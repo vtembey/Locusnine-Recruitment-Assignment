@@ -47,4 +47,18 @@ export class GetUsersService {
     
     return this.http.put(this.url+'PutUSER', body,{'headers':headers});
   }
+  
+  apiUpdateEmailId(user){
+
+    let headers= new HttpHeaders().set('content-type', 'application/json');
+
+    let body = {
+      USER_PK: user.USER_PK,
+      FULL_NAME:user.FULL_NAME,
+      EMAIL_ID: user.EMAIL_ID,
+      ROLE_TYPE:user.ROLE_TYPE,
+      STATUS:user.STATUS}               
+    
+    return this.http.patch(this.url+'PatchEmail', body,{'headers':headers});
+  }
 }
